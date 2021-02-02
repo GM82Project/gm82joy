@@ -1,0 +1,9 @@
+add sdl2.dll to the main directory, and sdl2.lib to the dll directory,
+then update the ged to point to the new locations. this is necessary
+because ged files only store absolute paths.
+
+you can get the sdl2 files here:
+
+https://www.libsdl.org/download-2.0.php
+
+look for devel libs for visual c++ x86.
