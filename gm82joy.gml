@@ -55,6 +55,8 @@
 #define __gm82joy_init
     object_event_add(__gm82core_object,ev_step,ev_step_begin,"__gm82joy_update()")
     
+    __gm82core_setdir(temp_directory+"\gm82")
+    
     __gm82joy_define("joy_init"                     )    
     __gm82joy_define("joy_count"                    )
     __gm82joy_define("joy_update"                   )
@@ -70,6 +72,8 @@
     __gm82joy_define("joy_hat_y"    ,ty_real,ty_real)
     __gm82joy_define("joy_ball_x"   ,ty_real,ty_real)
     __gm82joy_define("joy_ball_y"   ,ty_real,ty_real)
+    
+    __gm82core_setdir(working_directory)
     
     __gm82joy_call("joy_init")
     
