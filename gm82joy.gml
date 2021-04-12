@@ -73,9 +73,9 @@
     __gm82joy_define("joy_ball_x"   ,ty_real,ty_real)
     __gm82joy_define("joy_ball_y"   ,ty_real,ty_real)
     
-    __gm82core_setdir(working_directory)
-    
     __gm82joy_call("joy_init")
+    
+    __gm82core_setdir(working_directory)
     
     __gm82joy_map("updated",0)
     __gm82joy_map("deadzone",0.05)
