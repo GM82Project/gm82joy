@@ -3,10 +3,13 @@
 This is a replacement joystick system for Game Maker 8.1. Adding the extension
 completely replaces the builtin joystick functions with SDL2, which supports a
 lot more types of controllers. We also provide some new convenience functions
-that help you use joysticks in your games.
+to help you use joysticks in your games.
 
 
 [vanilla function list]
+
+These functions work as expected - their return values are unchanged. For more
+useful return values, check the other list below for the new functions.
 
 joystick_axes
 joystick_buttons
@@ -27,7 +30,7 @@ joystick_zpos
 [extended functions]
 
 joystick_axis(id,axis)
-    Returns the raw value (-1.0 to 1.0) of <axis> of controller <id>.
+    Returns the value (-1.0 to 1.0) of <axis> of controller <id>.
 
 joystick_check_button_pressed(id,button)
     Returns whether the <button> on joystick <id> was pressed since last step.
@@ -40,9 +43,17 @@ joystick_count()
 
 joystick_direction_leftstick(id)
     Returns a standard game maker angle for the left stick (x+y axes).
+    Returns -1 if a direction isn't pressed.
 
 joystick_direction_rightstick(id)
     Returns a standard game maker angle for the right stick (r+z axes).
+    Returns -1 if a direction isn't pressed.
+    
+joystick_distance_leftstick(id)
+    Returns the magnitude of movement (0 to 1) on the left stick (x+y axes).
+
+joystick_distance_rightstick(id)
+    Returns the magnitude of movement (0 to 1) on the right stick (r+z axes).
 
 joystick_found()
     Returns true if the known joysticks have changed since last step (either
@@ -50,6 +61,7 @@ joystick_found()
 
 joystick_pov_direction(id)
     Returns a standard game maker angle for the pov hat (dpad).
+    Returns -1 if a direction isn't pressed.
 
 joystick_pov_x(id)
     Returns an axis value (-1, 0 or 1) for the pov hat (dpad) horizontal.
@@ -60,6 +72,10 @@ joystick_pov_y(id)
 joystick_set_deadzone(value)
     Changes the internal deadzone value used for axis values (default is 5%).
 
+joystick_update()
+    Checks the hardware again (useful for waiting loops).
+    
+    
 [notes]
 
 -> The default axis deadzone is set to 5% (0.05).
