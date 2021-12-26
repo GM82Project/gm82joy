@@ -34,9 +34,11 @@ joystick_axis(id,axis)
 
 joystick_check_button_pressed(id,button)
     Returns whether the <button> on joystick <id> was pressed since last step.
+    Always use this function to ensure input reliability!
 
 joystick_check_button_released(id,button)
     Returns whether the <button> on joystick <id> was released since last step.
+    Always use this function to ensure input reliability!
 
 joystick_count()
     Returns the number of joysticks connected.
