@@ -10,11 +10,15 @@
 #define true !false
 
 SDL_Joystick** sticks = NULL;
+SDL_Event my_event;
 int stick_capacity = 16;
+int button_capacity = 256;
 int stick_count = 0;
+int button_events[32][256]; //generous estimate; i should eventually move this to dyn alloc
 
 GMREAL joy_init() {
 	SDL_InitSubSystem(SDL_INIT_JOYSTICK);
+    SDL_JoystickEventState(SDL_ENABLE);
 	sticks = malloc(stick_capacity*sizeof(SDL_Joystick*));
 	return 0;
 }
@@ -73,6 +77,37 @@ GMREAL joy_update() {
 			}
 		}
 	}
+    
+    //gather press and release button events    
+    for (int i=0;i<stick_capacity;i++) for (int j=0;j<button_capacity;j++) {
+        button_events[i][j]=0;
+    }
+    
+    while (SDL_PollEvent(&my_event)) {  
+        switch(my_event.type) {  
+            case SDL_JOYBUTTONDOWN: {
+                void* joy = SDL_JoystickFromInstanceID(my_event.jbutton.which);
+                int joyid=0;
+                for (int i = 0; i < stick_count; i++) {
+                    if (sticks[i] == joy) {joyid = i; break;}
+                }
+                
+                button_events[joyid][my_event.jbutton.button]|=1;
+                break;
+            }
+            case SDL_JOYBUTTONUP: {
+                void* joy = SDL_JoystickFromInstanceID(my_event.jbutton.which);
+                int joyid=0;
+                for (int i = 0; i < stick_count; i++) {
+                    if (sticks[i] == joy) {joyid = i; break;}
+                }
+                
+                button_events[joyid][my_event.jbutton.button]|=2;
+                break;
+            }
+        }
+    }    
+    
 	return change;
 }
 
@@ -110,6 +145,20 @@ GMREAL joy_axis(double id, double axis) {
 GMREAL joy_button(double id, double button) {
 	if (id < stick_count) {
 		return SDL_JoystickGetButton(sticks[(int)id], button);
+	}
+	return 0;
+}
+
+GMREAL joy_button_pressed(double id, double button) {
+	if (id < stick_count && button < button_capacity) {
+		return (button_events[(int)id][(int)button]&1) != 0;
+	}
+	return 0;
+}
+
+GMREAL joy_button_released(double id, double button) {
+	if (id < stick_count && button < button_capacity) {
+		return (button_events[(int)id][(int)button]&2) != 0;
 	}
 	return 0;
 }

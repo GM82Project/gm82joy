@@ -67,6 +67,8 @@
     __gm82joy_define_str("joy_name" ,ty_real        )
     __gm82joy_define("joy_axis"     ,ty_real,ty_real)
     __gm82joy_define("joy_button"   ,ty_real,ty_real)
+    __gm82joy_define("joy_button_pressed"   ,ty_real,ty_real)
+    __gm82joy_define("joy_button_released"   ,ty_real,ty_real)
     __gm82joy_define("joy_hat"      ,ty_real,ty_real)
     __gm82joy_define("joy_hat_x"    ,ty_real,ty_real)
     __gm82joy_define("joy_hat_y"    ,ty_real,ty_real)
@@ -82,31 +84,9 @@
 
 
 #define __gm82joy_update
-    var i,c,b,l,j,p,r;
-    
     if (__gm82joy_call("joy_update")) {
         __gm82joy_map("updated",1)
         __gm82joy_map("count",__gm82joy_call("joy_count"))
-    }
-    
-    c=__gm82joy_map("count")
-    for (i=0;i<c;i+=1) {
-        l=__gm82joy_call("joy_buttons",i)
-        for (j=0;j<l;j+=1) {
-            b=__gm82joy_call("joy_button",i,j)
-            p=0
-            r=0
-            
-            if (__gm82joy_map(string(i)+"b"+string(j))) {
-                r=!b                
-            } else {
-                p=b
-            }
-            
-            __gm82joy_map(string(i)+"b"+string(j),b)
-            __gm82joy_map(string(i)+"p"+string(j),p)
-            __gm82joy_map(string(i)+"r"+string(j),r)
-        }
     }
 
 
@@ -141,15 +121,15 @@
 
 
 #define joystick_check_button
-    return __gm82joy_map(string(argument0)+"b"+string(argument1))
+    return __gm82joy_call("joy_button",argument0,argument1)
 
 
 #define joystick_check_button_pressed
-    return __gm82joy_map(string(argument0)+"p"+string(argument1))
+    return __gm82joy_call("joy_button_pressed",argument0,argument1)
 
 
 #define joystick_check_button_released
-    return __gm82joy_map(string(argument0)+"r"+string(argument1))
+    return __gm82joy_call("joy_button_released",argument0,argument1)
 
 
 #define joystick_direction
