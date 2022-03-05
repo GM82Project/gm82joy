@@ -205,7 +205,7 @@
     
     if (xa==0 && ya==0) return -1
     
-    return 90-point_direction(0,0,xa,ya)
+    return (90-point_direction(0,0,xa,ya)+360) mod 360
 
 
 #define joystick_pov_direction
