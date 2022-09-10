@@ -1,0 +1,430 @@
+{
+	"name": "Game Maker 8.2 Joystick",
+	"folder": "gm82",
+	"version": "1.1.1",
+	"author": "renex && floogle",
+	"date": "05/03/2022",
+	"license": "Free to use, also for commercial games.",
+	"description": "Part of the standard Game Maker 8.2 distribution. This extension package replaces the builtin joystick system with SDL2 for better controller support and more than two controllers.",
+	"helpfile": "",
+	"hidden": false,
+	"dependencies": [
+		"Game Maker 8.2 Core"
+	],
+	"files": [
+		{
+			"filename": "gm82joy.gml",
+			"origname": "gm82joy.gml",
+			"kind": 2,
+			"init": "__gm82joy_init",
+			"final": "",
+			"functions": [
+				{
+					"name": "joystick_axes",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_axis",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "joystick_axis(id,axis)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_buttons",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_check_button",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_check_button_pressed",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "joystick_check_button_pressed(id,button)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_check_button_released",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "joystick_check_button_released(id,button)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_count",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "joystick_count()",
+					"hidden": false,
+					"argtypes": [],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_direction",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_direction_leftstick",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "joystick_direction_leftstick(id)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_direction_rightstick",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "joystick_direction_rightstick(id)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_distance",
+					"extname": "joystick_distance_leftstick",
+					"calltype": 2,
+					"helpline": "joystick_distance(id)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_distance_leftstick",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "joystick_distance_leftstick(id)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_distance_rightstick",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "joystick_distance_rightstick(id)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_exists",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_found",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "joystick_found()",
+					"hidden": false,
+					"argtypes": [],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_has_pov",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_name",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_pov",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_pov_direction",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "joystick_pov_direction(id)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_pov_x",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "joystick_pov_x(id)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_pov_y",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "joystick_pov_y(id)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_rpos",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_set_deadzone",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "joystick_set_deadzone(value)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_update",
+					"extname": "__gm82joy_update",
+					"calltype": 2,
+					"helpline": "joystick_update()",
+					"hidden": false,
+					"argtypes": [],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_upos",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_vpos",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_xpos",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_ypos",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "joystick_zpos",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "__gm82joy_call",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "__gm82joy_deadzone",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "__gm82joy_define",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "__gm82joy_define_str",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "__gm82joy_init",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "__gm82joy_map",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "__gm82joy_update",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				}
+			],
+			"constants": [
+				{
+					"name": "__gm82joy_mapid",
+					"value": "ds_map_create()",
+					"hidden": true
+				}
+			]
+		},
+		{
+			"filename": "gm82joy.dll",
+			"origname": "build\\Release\\gm82joy.dll",
+			"kind": 4,
+			"init": "",
+			"final": "",
+			"functions": [],
+			"constants": []
+		},
+		{
+			"filename": "SDL2.dll",
+			"origname": "lib\\x86\\SDL2.dll",
+			"kind": 4,
+			"init": "",
+			"final": "",
+			"functions": [],
+			"constants": []
+		}
+	]
+}
