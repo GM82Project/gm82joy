@@ -1,4 +1,4 @@
-Download the latest SDL2 development VC files from:
+Download the latest SDL2-devel VC files from:
 https://github.com/libsdl-org/SDL/releases/latest
 
 Then extract the lib folder into the gm82joy main directory.
