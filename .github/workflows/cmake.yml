@@ -1,0 +1,43 @@
+name: CMake
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
+    # You can convert this to a matrix build if you need cross-platform coverage.
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    runs-on: windows-2019
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - uses: robinraju/release-downloader@v1.5
+      with:
+        repository: 'libsdl-org/SDL'
+        latest: true
+        fileName: 'SDL2-devel-2.*-VC.zip'
+    
+    - name: Extract SDL2 zip
+      run: 7z x SDL2-*.zip */lib/x86/SDL2.*
+      
+    - name: Copy SDL2 files
+      run: move SDL2-*/lib .
+
+    - name: Configure CMake
+      # Configure CMake in a 'build' subdirectory.
+      run: cmake -B ${{github.workspace}}/build -A Win32
+
+    - name: Build
+      # Build your program with the given configuration
+      run: cmake --build ${{github.workspace}}/build --config Release
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        path: gm82joy.gex
