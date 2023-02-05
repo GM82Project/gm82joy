@@ -159,8 +159,8 @@
 #define joystick_direction_rightstick
     var xa,ya;
     
-    xa=__gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,3))
-    ya=__gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,2))
+    xa=__gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,2))
+    ya=__gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,3))
     
     if (xa==0 && ya==0) return -1
     
