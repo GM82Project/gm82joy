@@ -11,7 +11,7 @@ add_library(gm82joy SHARED gm82joy.c)
 
 target_link_libraries(gm82joy "${PROJECT_SOURCE_DIR}/lib/x86/SDL2.lib")
 
-set(UPX_PATH "" CACHE STRING "Path to upx.exe if applicable")
+set(UPX_PATH "upx" CACHE STRING "Path to upx.exe if applicable")
 if(NOT UPX_PATH STREQUAL "")
 	add_custom_command(
 		TARGET gm82joy
