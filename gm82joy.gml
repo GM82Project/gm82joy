@@ -16,7 +16,7 @@
 //(func,args,...)
     var dll,call;
 
-    dll="gm82joy.dll"
+    dll=temp_directory+"\gm82\gm82joy.dll"
     if (argument_count=1) call=external_define(dll,argument0,1,0,0)
     if (argument_count=2) call=external_define(dll,argument0,1,0,1,argument[1])
     if (argument_count=3) call=external_define(dll,argument0,1,0,2,argument[1],argument[2])
@@ -31,7 +31,7 @@
 //(func,args,...)
     var dll,call;
 
-    dll="gm82joy.dll"
+    dll=temp_directory+"\gm82\gm82joy.dll"
     if (argument_count=1) call=external_define(dll,argument0,1,1,0)
     if (argument_count=2) call=external_define(dll,argument0,1,1,1,argument[1])
     if (argument_count=3) call=external_define(dll,argument0,1,1,2,argument[1],argument[2])
@@ -54,8 +54,17 @@
 
 #define __gm82joy_init
     object_event_add(__gm82core_object,ev_step,ev_step_begin,"__gm82joy_update()")
-    
-    __gm82core_setdir(temp_directory+"\gm82")
+        
+    //move sdl2 to a common location so that it doesn't leave a copy behind every time you run the game
+    p=string_pos("\appdata\local\temp\gm_ttt_",string_lower(temp_directory))    
+    dir=string_copy(temp_directory,1,p+19)+"gm82 dll cache"    
+    directory_create(dir)    
+    file_delete(dir+"\SDL2.dll")
+    file_rename(temp_directory+"\gm82\SDL2.dll",dir+"\SDL2.dll")
+    //poke it so that joydll can find it
+    //this is a valid function and will put sdl2 in the link list
+    //this means it can be anywhere and it'll be found for further function defs
+    external_define(dir+"\SDL2.dll","SDL_GetError",dll_cdecl,ty_string,0)
     
     __gm82joy_define("joy_init"                     )    
     __gm82joy_define("joy_count"                    )
@@ -76,8 +85,6 @@
     __gm82joy_define("joy_ball_y"   ,ty_real,ty_real)
     
     __gm82joy_call("joy_init")
-    
-    __gm82core_setdir(working_directory)
     
     __gm82joy_map("updated",0)
     __gm82joy_map("deadzone",0.05)

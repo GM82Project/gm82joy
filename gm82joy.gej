@@ -1,9 +1,9 @@
 {
 	"name": "Game Maker 8.2 Joystick",
 	"folder": "gm82",
-	"version": "1.1.1",
+	"version": "1.2",
 	"author": "renex && floogle",
-	"date": "05/03/2022",
+	"date": "23/07/2023",
 	"license": "Free to use, also for commercial games.",
 	"description": "Part of the standard Game Maker 8.2 distribution. This extension package replaces the builtin joystick system with SDL2 for better controller support and more than two controllers.",
 	"helpfile": "",
