@@ -91,6 +91,9 @@
 
 
 #define __gm82joy_update
+    ///joystick_update()
+    //Checks the hardware again (useful for waiting loops).
+    
     if (__gm82joy_call("joy_update")) {
         __gm82joy_map("updated",1)
         __gm82joy_map("count",__gm82joy_call("joy_count"))
@@ -104,10 +107,17 @@
 
 
 #define joystick_set_deadzone
+    ///joystick_set_deadzone(value)
+    //value: amount of deadzone (0-1)
+    //Sets the deadzone for all joystick checks. You can set this immediately before reading a specific joystick to use that value.
+    
     __gm82joy_map("deadzone",median(0,argument0,1))
 
 
 #define joystick_found
+    ///joystick_found()
+    //returns: true if the known joysticks have changed since last step (either when new ones are found or old ones lost).
+    
     if (__gm82joy_map("updated")) {
         __gm82joy_map("updated",0)
         return 1
@@ -116,30 +126,61 @@
 
 
 #define joystick_count
+    ///joystick_count()
+    //returns: the number of joysticks currently connected and available.
+    
     return __gm82joy_map("count")
 
 
 #define joystick_axes
+    ///joystick_axes(id)
+    //id: joystick (0-31)
+    //returns: The number of axes of the joystick.
+
     return __gm82joy_call("joy_axes",argument0)
 
     
 #define joystick_buttons
+    ///joystick_buttons(id)
+    //id: joystick (0-31)
+    //returns: The number of buttons of the joystick.
+
     return __gm82joy_call("joy_buttons",argument0)
 
 
 #define joystick_check_button
+    ///joystick_check_button(id,numb)
+    //id: joystick (0-31)
+    //numb: button number (0-255)
+    //returns: whether the joystick button is pressed.
+
     return __gm82joy_call("joy_button",argument0,argument1)
 
 
 #define joystick_check_button_pressed
+    ///joystick_check_button_pressed(id,numb)
+    //id: joystick (0-31)
+    //numb: button number (0-255)
+    //returns: whether the joystick button was pressed since the last frame.
+
     return __gm82joy_call("joy_button_pressed",argument0,argument1)
 
 
 #define joystick_check_button_released
+    ///joystick_check_button_released(id,numb)
+    //id: joystick (0-31)
+    //numb: button number (0-255)
+    //returns: whether the joystick button was released since the last frame.
+    
     return __gm82joy_call("joy_button_released",argument0,argument1)
 
 
 #define joystick_direction
+    ///joystick_direction(id)
+    //id: joystick (0-31)
+    //returns: the keycode (vk_numpad1 to vk_numpad9) corresponding to the direction of joystick id.
+    //Compatibility GM8 function. For more advanced functionality, try joystick_direction_leftstick(id).
+
     var xa,ya;
     
     xa=sign(__gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,0)))+1
@@ -153,6 +194,10 @@
 
 
 #define joystick_direction_leftstick
+    ///joystick_direction_leftstick(id)
+    //id: joystick (0-31)
+    //returns: Angle of the joystick's left stick, or -1 if no direction is pressed.
+    
     var xa,ya;
     
     xa=__gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,0))
@@ -164,6 +209,10 @@
 
 
 #define joystick_direction_rightstick
+    ///joystick_direction_rightstick(id)
+    //id: joystick (0-31)
+    //returns: Angle of the joystick's right stick, or -1 if no direction is pressed.
+    
     var xa,ya;
     
     xa=__gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,2))
@@ -175,6 +224,10 @@
 
 
 #define joystick_distance_leftstick
+    ///joystick_distance_leftstick(id)
+    //id: joystick (0-31)
+    //returns: Analog distance of the joystick's left stick.
+    
     var xa,ya;
     
     xa=__gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,0))
@@ -184,6 +237,10 @@
 
 
 #define joystick_distance_rightstick
+    ///joystick_distance_rightstick(id)
+    //id: joystick (0-31)
+    //returns: Analog distance of the joystick's right stick.
+    
     var xa,ya;
     
     xa=__gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,3))
@@ -193,18 +250,36 @@
 
 
 #define joystick_exists
+    ///joystick_exists(id)
+    //id: joystick (0-31)
+    //returns: whether joystick id (0-31) exists.
+    //Use joystick_count() to know how many joysticks are connected.
+    
     return (argument0<__gm82joy_call("joy_count"))
 
  
 #define joystick_has_pov
+    ///joystick_has_pov(id)
+    //id: joystick (0-31)
+    //returns: whether the joystick has a pov hat or d-pad.
+    
     return !!__gm82joy_call("joy_hats",argument0)
 
  
 #define joystick_name
+    ///joystick_name(id)
+    //id: joystick (0-31)
+    //returns: The device name reported by the joystick.
+    
     return __gm82joy_call("joy_name",argument0)
 
 
 #define joystick_pov
+    ///joystick_pov(id)
+    //id: joystick (0-31)
+    //returns: The joysticks point-of view position. This is an angle between 0 and 360 degrees. 0 is forwards, 90 to the right, 180 backwards and 270 to the left. When no point-of-view direction is pressed by the user -1 is returned.
+    //Compatibility GM8 function. For more advanced usage, try joystick_pov_direction(id).
+
     var xa,ya;
     
     xa=sign(__gm82joy_call("joy_hat_x",argument0,0))
@@ -216,6 +291,10 @@
 
 
 #define joystick_pov_direction
+    ///joystick_pov_direction(id)
+    //id: joystick (0-31)
+    //returns: A standard game maker angle for the pov hat (d-pad), or -1 if no direction is pressed.
+    
     var xa,ya;
     
     xa=sign(__gm82joy_call("joy_hat_x",argument0,0))
@@ -227,38 +306,82 @@
 
 
 #define joystick_pov_x
+    ///joystick_pov_x(id)
+    //id: joystick (0-31)
+    //returns: an axis value (-1, 0 or 1) for the pov hat (d-pad) horizontal.
+    
     return __gm82joy_call("joy_hat_x",argument0,0)
 
 
 #define joystick_pov_y
+    ///joystick_pov_y(id)
+    //id: joystick (0-31)
+    //returns: an axis value (-1, 0 or 1) for the pov hat (d-pad) vertical.
+    
     return __gm82joy_call("joy_hat_y",argument0,0)
 
 
 #define joystick_axis
+    ///joystick_axis(id,axis)
+    //id: joystick (0-31)
+    //axis: axis number (0-16)
+    //returns: the position (-1 to 1) of the joystick's axis.
+    //The currently set global deadzone is taken into account.
+    
     return __gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,argument1))
 
  
 #define joystick_xpos
+    ///joystick_xpos(id,axis)
+    //id: joystick (0-31)
+    //returns: the position (-1 to 1) of the joystick's x axis.
+    //The currently set global deadzone is taken into account.
+    
     return __gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,0))
 
  
 #define joystick_ypos
+    ///joystick_ypos(id,axis)
+    //id: joystick (0-31)
+    //returns: the position (-1 to 1) of the joystick's y axis.
+    //The currently set global deadzone is taken into account.
+    
     return __gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,1))
 
  
 #define joystick_zpos
+    ///joystick_zpos(id,axis)
+    //id: joystick (0-31)
+    //returns: the position (-1 to 1) of the joystick's z axis.
+    //The currently set global deadzone is taken into account.
+    
     return __gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,2))
 
 
 #define joystick_rpos
+    ///joystick_rpos(id,axis)
+    //id: joystick (0-31)
+    //returns: the position (-1 to 1) of the joystick's r axis.
+    //The currently set global deadzone is taken into account.
+    
     return __gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,3))
 
  
 #define joystick_upos
+    ///joystick_upos(id,axis)
+    //id: joystick (0-31)
+    //returns: the position (-1 to 1) of the joystick's u axis.
+    //The currently set global deadzone is taken into account.
+    
     return __gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,4))
 
  
 #define joystick_vpos
+    ///joystick_vpos(id,axis)
+    //id: joystick (0-31)
+    //returns: the position (-1 to 1) of the joystick's v axis.
+    //The currently set global deadzone is taken into account.
+    
     return __gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,5))
 
  
