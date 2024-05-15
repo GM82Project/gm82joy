@@ -11,15 +11,6 @@ add_library(gm82joy SHARED gm82joy.c)
 
 target_link_libraries(gm82joy "${PROJECT_SOURCE_DIR}/lib/x86/SDL2.lib")
 
-set(UPX_PATH "upx" CACHE STRING "Path to upx.exe if applicable")
-if(NOT UPX_PATH STREQUAL "")
-	add_custom_command(
-		TARGET gm82joy
-		POST_BUILD	
-		COMMAND ${UPX_PATH} --lzma ${CMAKE_BINARY_DIR}/$<CONFIG>/gm82joy.dll
-	)
-endif()
-
 option(INSTALL_GEX "Install the generated .gex" OFF)
 
 set(GEX_URL https://raw.githubusercontent.com/GM82Project/gm82gex/main/gm82gex.py)
