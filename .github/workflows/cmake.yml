@@ -15,9 +15,9 @@ jobs:
     runs-on: windows-2019
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
-    - uses: robinraju/release-downloader@v1.5
+    - uses: robinraju/release-downloader@v1
       with:
         repository: 'libsdl-org/SDL'
         latest: true
@@ -50,7 +50,7 @@ jobs:
       run: cmake --build ${{github.workspace}}/build --config Release
     
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: gm82joy
         path: gm82joy.gex
