@@ -227,3 +227,7 @@ GMREAL joy_ball_y(double id, double ball) {
 	}
 	return 0;
 }
+
+GMREAL joy_rumble(double id, double strength) {
+	return SDL_JoystickRumble(sticks[(int)id], 0x0000, (Uint16)(int)strength, 1);
+}
