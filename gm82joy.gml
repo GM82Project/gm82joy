@@ -332,7 +332,7 @@
 
  
 #define joystick_xpos
-    ///joystick_xpos(id,axis)
+    ///joystick_xpos(id)
     //id: joystick (0-31)
     //returns: the position (-1 to 1) of the joystick's x axis.
     //The currently set global deadzone is taken into account.
@@ -341,7 +341,7 @@
 
  
 #define joystick_ypos
-    ///joystick_ypos(id,axis)
+    ///joystick_ypos(id)
     //id: joystick (0-31)
     //returns: the position (-1 to 1) of the joystick's y axis.
     //The currently set global deadzone is taken into account.
@@ -350,7 +350,7 @@
 
  
 #define joystick_zpos
-    ///joystick_zpos(id,axis)
+    ///joystick_zpos(id)
     //id: joystick (0-31)
     //returns: the position (-1 to 1) of the joystick's z axis.
     //The currently set global deadzone is taken into account.
@@ -359,7 +359,7 @@
 
 
 #define joystick_rpos
-    ///joystick_rpos(id,axis)
+    ///joystick_rpos(id)
     //id: joystick (0-31)
     //returns: the position (-1 to 1) of the joystick's r axis.
     //The currently set global deadzone is taken into account.
@@ -368,7 +368,7 @@
 
  
 #define joystick_upos
-    ///joystick_upos(id,axis)
+    ///joystick_upos(id)
     //id: joystick (0-31)
     //returns: the position (-1 to 1) of the joystick's u axis.
     //The currently set global deadzone is taken into account.
@@ -377,7 +377,7 @@
 
  
 #define joystick_vpos
-    ///joystick_vpos(id,axis)
+    ///joystick_vpos(id)
     //id: joystick (0-31)
     //returns: the position (-1 to 1) of the joystick's v axis.
     //The currently set global deadzone is taken into account.
