@@ -83,6 +83,7 @@
     __gm82joy_define("joy_hat_y"    ,ty_real,ty_real)
     __gm82joy_define("joy_ball_x"   ,ty_real,ty_real)
     __gm82joy_define("joy_ball_y"   ,ty_real,ty_real)
+    __gm82joy_define("joy_rumble"   ,ty_real,ty_real)
     
     __gm82joy_call("joy_init")
     
