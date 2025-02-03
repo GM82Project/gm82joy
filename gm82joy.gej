@@ -337,6 +337,19 @@
 					"returntype": 2
 				},
 				{
+					"name": "joystick_rumble",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
 					"name": "__gm82joy_call",
 					"extname": "",
 					"calltype": 2,

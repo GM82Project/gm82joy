@@ -83,6 +83,7 @@
     __gm82joy_define("joy_hat_y"    ,ty_real,ty_real)
     __gm82joy_define("joy_ball_x"   ,ty_real,ty_real)
     __gm82joy_define("joy_ball_y"   ,ty_real,ty_real)
+    __gm82joy_define("joy_rumble"   ,ty_real,ty_real,ty_real)
     
     __gm82joy_call("joy_init")
     
@@ -385,3 +386,13 @@
     return __gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,5))
 
  
+#define joystick_rumble
+    ///joystick_rumble(id,strength,len)
+    //id: joystick (0-31)
+    //strength: rumble strength (0-0xFFFF)
+    //len: length of rumble, in milliseconds (Uint32 ms)
+    //returns: 0 if rumble is supported by controller, otherwise -1.
+    //*rumble is joystick's vibration. Useful for making an atmosphere.
+    return __gm82joy_call("joy_rumble",argument0,argument1,argument2)
+//
+//
