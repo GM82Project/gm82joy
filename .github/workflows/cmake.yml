@@ -20,7 +20,7 @@ jobs:
     - uses: robinraju/release-downloader@v1
       with:
         repository: 'libsdl-org/SDL'
-        tag: v2.30.12
+        tag: release-v2.30.12
         fileName: 'SDL2-devel-2.*-VC.zip'
     
     - name: Extract SDL2 zip
