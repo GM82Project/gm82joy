@@ -386,13 +386,13 @@
     return __gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,5))
 
  
-#define joystick_rumble
-    ///joystick_rumble(id,strength,len)
+#define __gm82joy_joystick_rumble
+    ///joystick_rumble(id,strength,length)
     //id: joystick (0-31)
-    //strength: rumble strength (0-0xFFFF)
-    //len: length of rumble, in milliseconds (Uint32 ms)
-    //returns: 0 if rumble is supported by controller, otherwise -1.
-    //*rumble is joystick's vibration. Useful for making an atmosphere.
-    return __gm82joy_call("joy_rumble",argument0,argument1,argument2)
+    //strength: rumble strength (0-100)
+    //len: length of rumble, in milliseconds
+    //returns: 1 if rumble is supported by controller, otherwise 0.
+    //Note that very long rumble durations may be undesirable and will persist after the game is closed.
+    return __gm82joy_call("joy_rumble",argument0,median(0,(argument1/100)*$ffff,$ffff),max(0,argument2))!=-1
 //
 //
