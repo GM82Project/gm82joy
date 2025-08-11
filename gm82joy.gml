@@ -53,6 +53,8 @@
 
 
 #define __gm82joy_init
+    globalvar gm82joy_version;gm82joy_version=120
+    
     object_event_add(gm82core_object,ev_step,ev_step_begin,"__gm82joy_update()")
         
     //move sdl2 to a common location so that it doesn't leave a copy behind every time you run the game
