@@ -2,3 +2,4 @@ build
 lib
 *.gex
 gm82gex.py
+desktop.ini
