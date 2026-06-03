@@ -1,9 +1,9 @@
 {
 	"name": "Game Maker 8.2 Joystick",
 	"folder": "gm82",
-	"version": "1.2",
+	"version": "1.2.1",
 	"author": "renex && floogle",
-	"date": "05/02/2025",
+	"date": "03/06/2026",
 	"license": "Free to use, also for commercial games.",
 	"description": "Part of the standard Game Maker 8.2 distribution. This extension package replaces the builtin joystick system with SDL2 for better controller support and more than two controllers.",
 	"helpfile": "",
@@ -17,7 +17,7 @@
 			"origname": "gm82joy.gml",
 			"kind": 2,
 			"init": "__gm82joy_init",
-			"final": "",
+			"final": "__gm82joy_stop",
 			"functions": [
 				{
 					"name": "joystick_axes",
@@ -262,6 +262,19 @@
 					"returntype": 2
 				},
 				{
+					"name": "joystick_rumble",
+					"extname": "__gm82joy_joystick_rumble",
+					"calltype": 2,
+					"helpline": "joystick_rumble(id,strength,length)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
 					"name": "joystick_set_deadzone",
 					"extname": "",
 					"calltype": 2,
@@ -337,19 +350,6 @@
 					"returntype": 2
 				},
 				{
-					"name": "joystick_rumble",
-					"extname": "__gm82joy_joystick_rumble",
-					"calltype": 2,
-					"helpline": "joystick_rumble(id,strength,length)",
-					"hidden": false,
-					"argtypes": [
-						2,
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
 					"name": "__gm82joy_call",
 					"extname": "",
 					"calltype": 2,
@@ -396,6 +396,15 @@
 				},
 				{
 					"name": "__gm82joy_map",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "__gm82joy_stop",
 					"extname": "",
 					"calltype": 2,
 					"helpline": "",

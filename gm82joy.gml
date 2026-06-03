@@ -1,45 +1,45 @@
 #define __gm82joy_call
 //(func,args,...)
-    var call;
+    var __call;
 
-    call=__gm82joy_map("__dll_"+argument0)
+    __call=__gm82joy_map("__dll_"+argument0)
 
-    if (argument_count=1) return external_call(call)
-    if (argument_count=2) return external_call(call,argument[1])
-    if (argument_count=3) return external_call(call,argument[1],argument[2])
-    if (argument_count=4) return external_call(call,argument[1],argument[2],argument[3])
-    if (argument_count=5) return external_call(call,argument[1],argument[2],argument[3],argument[4])
-    if (argument_count=6) return external_call(call,argument[1],argument[2],argument[3],argument[4],argument[5])
+    if (argument_count=1) return external_call(__call)
+    if (argument_count=2) return external_call(__call,argument[1])
+    if (argument_count=3) return external_call(__call,argument[1],argument[2])
+    if (argument_count=4) return external_call(__call,argument[1],argument[2],argument[3])
+    if (argument_count=5) return external_call(__call,argument[1],argument[2],argument[3],argument[4])
+    if (argument_count=6) return external_call(__call,argument[1],argument[2],argument[3],argument[4],argument[5])
 
 
 #define __gm82joy_define
 //(func,args,...)
-    var dll,call;
+    var __dll,__call;
 
-    dll=temp_directory+"\gm82\gm82joy.dll"
-    if (argument_count=1) call=external_define(dll,argument0,1,0,0)
-    if (argument_count=2) call=external_define(dll,argument0,1,0,1,argument[1])
-    if (argument_count=3) call=external_define(dll,argument0,1,0,2,argument[1],argument[2])
-    if (argument_count=4) call=external_define(dll,argument0,1,0,3,argument[1],argument[2],argument[3])
-    if (argument_count=5) call=external_define(dll,argument0,1,0,4,argument[1],argument[2],argument[3],argument[4])
-    if (argument_count=6) call=external_define(dll,argument0,1,0,5,argument[1],argument[2],argument[3],argument[4],argument[5])
+    __dll=temp_directory+"\gm82\gm82joy.dll"
+    if (argument_count=1) __call=external_define(__dll,argument0,1,0,0)
+    if (argument_count=2) __call=external_define(__dll,argument0,1,0,1,argument[1])
+    if (argument_count=3) __call=external_define(__dll,argument0,1,0,2,argument[1],argument[2])
+    if (argument_count=4) __call=external_define(__dll,argument0,1,0,3,argument[1],argument[2],argument[3])
+    if (argument_count=5) __call=external_define(__dll,argument0,1,0,4,argument[1],argument[2],argument[3],argument[4])
+    if (argument_count=6) __call=external_define(__dll,argument0,1,0,5,argument[1],argument[2],argument[3],argument[4],argument[5])
 
-    __gm82joy_map("__dll_"+argument0,call)
+    __gm82joy_map("__dll_"+argument0,__call)
 
 
 #define __gm82joy_define_str
 //(func,args,...)
-    var dll,call;
+    var __dll,__call;
 
-    dll=temp_directory+"\gm82\gm82joy.dll"
-    if (argument_count=1) call=external_define(dll,argument0,1,1,0)
-    if (argument_count=2) call=external_define(dll,argument0,1,1,1,argument[1])
-    if (argument_count=3) call=external_define(dll,argument0,1,1,2,argument[1],argument[2])
-    if (argument_count=4) call=external_define(dll,argument0,1,1,3,argument[1],argument[2],argument[3])
-    if (argument_count=5) call=external_define(dll,argument0,1,1,4,argument[1],argument[2],argument[3],argument[4])
-    if (argument_count=6) call=external_define(dll,argument0,1,1,5,argument[1],argument[2],argument[3],argument[4],argument[5])
+    __dll=temp_directory+"\gm82\gm82joy.dll"
+    if (argument_count=1) __call=external_define(__dll,argument0,1,1,0)
+    if (argument_count=2) __call=external_define(__dll,argument0,1,1,1,argument[1])
+    if (argument_count=3) __call=external_define(__dll,argument0,1,1,2,argument[1],argument[2])
+    if (argument_count=4) __call=external_define(__dll,argument0,1,1,3,argument[1],argument[2],argument[3])
+    if (argument_count=5) __call=external_define(__dll,argument0,1,1,4,argument[1],argument[2],argument[3],argument[4])
+    if (argument_count=6) __call=external_define(__dll,argument0,1,1,5,argument[1],argument[2],argument[3],argument[4],argument[5])
 
-    __gm82joy_map("__dll_"+argument0,call)
+    __gm82joy_map("__dll_"+argument0,__call)
 
 
 #define __gm82joy_map
@@ -53,20 +53,21 @@
 
 
 #define __gm82joy_init
-    globalvar gm82joy_version;gm82joy_version=120
+    var __dir;
+    
+    globalvar gm82joy_version;gm82joy_version=121
     
     object_event_add(gm82core_object,ev_step,ev_step_begin,"__gm82joy_update()")
         
     //move sdl2 to a common location so that it doesn't leave a copy behind every time you run the game
-    p=string_pos("\appdata\local\temp\gm_ttt_",string_lower(temp_directory))    
-    dir=string_copy(temp_directory,1,p+19)+"gm82 dll cache"    
-    directory_create(dir)    
-    file_delete(dir+"\SDL2.dll")
-    file_rename(temp_directory+"\gm82\SDL2.dll",dir+"\SDL2.dll")
+    __dir=string_copy(temp_directory,1,string_pos("\appdata\local\temp\gm_ttt_",string_lower(temp_directory))+19)+"gm82 dll cache"    
+    directory_create(__dir)    
+    file_delete(__dir+"\SDL2.dll")
+    file_rename(temp_directory+"\gm82\SDL2.dll",__dir+"\SDL2.dll")
     //poke it so that joydll can find it
     //this is a valid function and will put sdl2 in the link list
     //this means it can be anywhere and it'll be found for further function defs
-    external_define(dir+"\SDL2.dll","SDL_GetError",dll_cdecl,ty_string,0)
+    external_define(__dir+"\SDL2.dll","SDL_GetError",dll_cdecl,ty_string,0)
     
     __gm82joy_define("joy_init"                     )    
     __gm82joy_define("joy_count"                    )
@@ -75,7 +76,6 @@
     __gm82joy_define("joy_axes"     ,ty_real        )
     __gm82joy_define("joy_hats"     ,ty_real        )
     __gm82joy_define("joy_balls"    ,ty_real        )
-    __gm82joy_define_str("joy_name" ,ty_real        )
     __gm82joy_define("joy_axis"     ,ty_real,ty_real)
     __gm82joy_define("joy_button"   ,ty_real,ty_real)
     __gm82joy_define("joy_button_pressed"   ,ty_real,ty_real)
@@ -86,11 +86,19 @@
     __gm82joy_define("joy_ball_x"   ,ty_real,ty_real)
     __gm82joy_define("joy_ball_y"   ,ty_real,ty_real)
     __gm82joy_define("joy_rumble"   ,ty_real,ty_real,ty_real)
+    __gm82joy_define_str("joy_name" ,ty_real        )
     
     __gm82joy_call("joy_init")
     
     __gm82joy_map("updated",0)
     __gm82joy_map("deadzone",0.05)
+
+
+#define __gm82joy_stop
+    //stop any rumbling controllers
+    var __i;__i=0 repeat (__gm82joy_map("count")) {
+        __gm82joy_call("joy_rumble",__i,0,0)
+    __i+=1}
 
 
 #define __gm82joy_update
@@ -140,7 +148,7 @@
     //id: joystick (0-31)
     //returns: The number of axes of the joystick.
 
-    return __gm82joy_call("joy_axes",argument0)
+    return __gm82joy_call("joy_axes",median(0,argument0,31))
 
     
 #define joystick_buttons
@@ -148,7 +156,7 @@
     //id: joystick (0-31)
     //returns: The number of buttons of the joystick.
 
-    return __gm82joy_call("joy_buttons",argument0)
+    return __gm82joy_call("joy_buttons",median(0,argument0,31))
 
 
 #define joystick_check_button
@@ -157,7 +165,7 @@
     //numb: button number (0-255)
     //returns: whether the joystick button is pressed.
 
-    return __gm82joy_call("joy_button",argument0,argument1)
+    return __gm82joy_call("joy_button",median(0,argument0,31),argument1)
 
 
 #define joystick_check_button_pressed
@@ -166,7 +174,7 @@
     //numb: button number (0-255)
     //returns: whether the joystick button was pressed since the last frame.
 
-    return __gm82joy_call("joy_button_pressed",argument0,argument1)
+    return __gm82joy_call("joy_button_pressed",median(0,argument0,31),argument1)
 
 
 #define joystick_check_button_released
@@ -175,7 +183,7 @@
     //numb: button number (0-255)
     //returns: whether the joystick button was released since the last frame.
     
-    return __gm82joy_call("joy_button_released",argument0,argument1)
+    return __gm82joy_call("joy_button_released",median(0,argument0,31),argument1)
 
 
 #define joystick_direction
@@ -184,15 +192,17 @@
     //returns: the keycode (vk_numpad1 to vk_numpad9) corresponding to the direction of joystick id.
     //Compatibility GM8 function. For more advanced functionality, try joystick_direction_leftstick(id).
 
-    var xa,ya;
+    var __xa,__ya,__joy;
     
-    xa=sign(__gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,0)))+1
-    ya=sign(__gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,1)))+1
+    __joy=median(0,argument0,31)
+    
+    __xa=sign(__gm82joy_deadzone(__gm82joy_call("joy_axis",__joy,0)))+1
+    __ya=sign(__gm82joy_deadzone(__gm82joy_call("joy_axis",__joy,1)))+1
     
     return pick(ya,
-        pick(xa,vk_numpad7,vk_numpad8,vk_numpad9),
-        pick(xa,vk_numpad4,vk_numpad5,vk_numpad6),
-        pick(xa,vk_numpad1,vk_numpad2,vk_numpad3)
+        pick(__xa,vk_numpad7,vk_numpad8,vk_numpad9),
+        pick(__xa,vk_numpad4,vk_numpad5,vk_numpad6),
+        pick(__xa,vk_numpad1,vk_numpad2,vk_numpad3)
     )
 
 
@@ -201,14 +211,16 @@
     //id: joystick (0-31)
     //returns: Angle of the joystick's left stick, or -1 if no direction is pressed.
     
-    var xa,ya;
+    var __xa,__ya,__joy;
     
-    xa=__gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,0))
-    ya=__gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,1))
+    __joy=median(0,argument0,31)
     
-    if (xa==0 && ya==0) return -1
+    __xa=__gm82joy_deadzone(__gm82joy_call("joy_axis",__joy,0))
+    __ya=__gm82joy_deadzone(__gm82joy_call("joy_axis",__joy,1))
     
-    return point_direction(0,0,xa,ya)
+    if (__xa==0 && __ya==0) return -1
+    
+    return point_direction(0,0,__xa,__ya)
 
 
 #define joystick_direction_rightstick
@@ -216,14 +228,16 @@
     //id: joystick (0-31)
     //returns: Angle of the joystick's right stick, or -1 if no direction is pressed.
     
-    var xa,ya;
+    var __xa,__ya,__joy;
     
-    xa=__gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,2))
-    ya=__gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,3))
+    __joy=median(0,argument0,31)
     
-    if (xa==0 && ya==0) return -1
+    __xa=__gm82joy_deadzone(__gm82joy_call("joy_axis",__joy,2))
+    __ya=__gm82joy_deadzone(__gm82joy_call("joy_axis",__joy,3))
     
-    return point_direction(0,0,xa,ya)
+    if (__xa==0 && __ya==0) return -1
+    
+    return point_direction(0,0,__xa,__ya)
 
 
 #define joystick_distance_leftstick
@@ -231,12 +245,14 @@
     //id: joystick (0-31)
     //returns: Analog distance of the joystick's left stick.
     
-    var xa,ya;
+    var __xa,__ya,__joy;
     
-    xa=__gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,0))
-    ya=__gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,1))
+    __joy=median(0,argument0,31)
     
-    return min(point_distance(0,0,xa,ya),1)
+    __xa=__gm82joy_deadzone(__gm82joy_call("joy_axis",__joy,0))
+    __ya=__gm82joy_deadzone(__gm82joy_call("joy_axis",__joy,1))
+    
+    return min(point_distance(0,0,__xa,__ya),1)
 
 
 #define joystick_distance_rightstick
@@ -244,12 +260,14 @@
     //id: joystick (0-31)
     //returns: Analog distance of the joystick's right stick.
     
-    var xa,ya;
+    var __xa,__ya,__joy;
     
-    xa=__gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,3))
-    ya=__gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,2))
+    __joy=median(0,argument0,31)
     
-    return min(point_distance(0,0,xa,ya),1)
+    __xa=__gm82joy_deadzone(__gm82joy_call("joy_axis",__joy,3))
+    __ya=__gm82joy_deadzone(__gm82joy_call("joy_axis",__joy,2))
+    
+    return min(point_distance(0,0,__xa,__ya),1)
 
 
 #define joystick_exists
@@ -258,7 +276,7 @@
     //returns: whether joystick id (0-31) exists.
     //Use joystick_count() to know how many joysticks are connected.
     
-    return (argument0<__gm82joy_call("joy_count"))
+    return (argument>=0) and (argument0<__gm82joy_call("joy_count"))
 
  
 #define joystick_has_pov
@@ -266,7 +284,7 @@
     //id: joystick (0-31)
     //returns: whether the joystick has a pov hat or d-pad.
     
-    return !!__gm82joy_call("joy_hats",argument0)
+    return !!__gm82joy_call("joy_hats",median(0,argument0,31))
 
  
 #define joystick_name
@@ -274,7 +292,7 @@
     //id: joystick (0-31)
     //returns: The device name reported by the joystick.
     
-    return __gm82joy_call("joy_name",argument0)
+    return __gm82joy_call("joy_name",median(0,argument0,31))
 
 
 #define joystick_pov
@@ -283,14 +301,16 @@
     //returns: The joysticks point-of view position. This is an angle between 0 and 360 degrees. 0 is forwards, 90 to the right, 180 backwards and 270 to the left. When no point-of-view direction is pressed by the user -1 is returned.
     //Compatibility GM8 function. For more advanced usage, try joystick_pov_direction(id).
 
-    var xa,ya;
+    var __xa,__ya,__joy;
     
-    xa=sign(__gm82joy_call("joy_hat_x",argument0,0))
-    ya=sign(__gm82joy_call("joy_hat_y",argument0,0))
+    __joy=median(0,argument0,31)
     
-    if (xa==0 && ya==0) return -1
+    __xa=sign(__gm82joy_call("joy_hat_x",__joy,0))
+    __ya=sign(__gm82joy_call("joy_hat_y",__joy,0))
     
-    return (90-point_direction(0,0,xa,ya)+360) mod 360
+    if (__xa==0 && __ya==0) return -1
+    
+    return (90-point_direction(0,0,__xa,__ya)+360) mod 360
 
 
 #define joystick_pov_direction
@@ -298,14 +318,16 @@
     //id: joystick (0-31)
     //returns: A standard game maker angle for the pov hat (d-pad), or -1 if no direction is pressed.
     
-    var xa,ya;
+    var __xa,__ya,__joy;
     
-    xa=sign(__gm82joy_call("joy_hat_x",argument0,0))
-    ya=sign(__gm82joy_call("joy_hat_y",argument0,0))
+    __joy=median(0,argument0,31)
     
-    if (xa==0 && ya==0) return -1
+    __xa=sign(__gm82joy_call("joy_hat_x",__joy,0))
+    __ya=sign(__gm82joy_call("joy_hat_y",__joy,0))
     
-    return point_direction(0,0,xa,ya)
+    if (__xa==0 && __ya==0) return -1
+    
+    return point_direction(0,0,__xa,__ya)
 
 
 #define joystick_pov_x
@@ -313,7 +335,7 @@
     //id: joystick (0-31)
     //returns: an axis value (-1, 0 or 1) for the pov hat (d-pad) horizontal.
     
-    return __gm82joy_call("joy_hat_x",argument0,0)
+    return __gm82joy_call("joy_hat_x",median(0,argument0,31),0)
 
 
 #define joystick_pov_y
@@ -321,7 +343,7 @@
     //id: joystick (0-31)
     //returns: an axis value (-1, 0 or 1) for the pov hat (d-pad) vertical.
     
-    return __gm82joy_call("joy_hat_y",argument0,0)
+    return __gm82joy_call("joy_hat_y",median(0,argument0,31),0)
 
 
 #define joystick_axis
@@ -331,7 +353,7 @@
     //returns: the position (-1 to 1) of the joystick's axis.
     //The currently set global deadzone is taken into account.
     
-    return __gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,argument1))
+    return __gm82joy_deadzone(__gm82joy_call("joy_axis",median(0,argument0,31),argument1))
 
  
 #define joystick_xpos
@@ -340,7 +362,7 @@
     //returns: the position (-1 to 1) of the joystick's x axis.
     //The currently set global deadzone is taken into account.
     
-    return __gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,0))
+    return __gm82joy_deadzone(__gm82joy_call("joy_axis",median(0,argument0,31),0))
 
  
 #define joystick_ypos
@@ -349,7 +371,7 @@
     //returns: the position (-1 to 1) of the joystick's y axis.
     //The currently set global deadzone is taken into account.
     
-    return __gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,1))
+    return __gm82joy_deadzone(__gm82joy_call("joy_axis",median(0,argument0,31),1))
 
  
 #define joystick_zpos
@@ -358,7 +380,7 @@
     //returns: the position (-1 to 1) of the joystick's z axis.
     //The currently set global deadzone is taken into account.
     
-    return __gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,2))
+    return __gm82joy_deadzone(__gm82joy_call("joy_axis",median(0,argument0,31),2))
 
 
 #define joystick_rpos
@@ -367,7 +389,7 @@
     //returns: the position (-1 to 1) of the joystick's r axis.
     //The currently set global deadzone is taken into account.
     
-    return __gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,3))
+    return __gm82joy_deadzone(__gm82joy_call("joy_axis",median(0,argument0,31),3))
 
  
 #define joystick_upos
@@ -376,7 +398,7 @@
     //returns: the position (-1 to 1) of the joystick's u axis.
     //The currently set global deadzone is taken into account.
     
-    return __gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,4))
+    return __gm82joy_deadzone(__gm82joy_call("joy_axis",median(0,argument0,31),4))
 
  
 #define joystick_vpos
@@ -385,16 +407,15 @@
     //returns: the position (-1 to 1) of the joystick's v axis.
     //The currently set global deadzone is taken into account.
     
-    return __gm82joy_deadzone(__gm82joy_call("joy_axis",argument0,5))
+    return __gm82joy_deadzone(__gm82joy_call("joy_axis",median(0,argument0,31),5))
 
  
 #define __gm82joy_joystick_rumble
     ///joystick_rumble(id,strength,length)
     //id: joystick (0-31)
-    //strength: rumble strength (0-100)
+    //strength: rumble strength (0-100, 0 to stop rumble)
     //len: length of rumble, in milliseconds
     //returns: 1 if rumble is supported by controller, otherwise 0.
-    //Note that very long rumble durations may be undesirable and will persist after the game is closed.
-    return __gm82joy_call("joy_rumble",argument0,median(0,(argument1/100)*$ffff,$ffff),max(0,argument2))!=-1
+    return __gm82joy_call("joy_rumble",median(0,argument0,31),floor(median(0,(argument1/100),1)*$ffff),max(0,argument2))!=-1
 //
 //
